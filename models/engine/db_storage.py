@@ -27,12 +27,12 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
-        HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
-        HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
-        HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
-        HBNB_ENV = getenv('HBNB_ENV')
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        HBNB_MYSQL_USER = getenv(HBNB_MYSQL_USER)
+        HBNB_MYSQL_PWD = getenv(HBNB_MYSQL_PWD)
+        HBNB_MYSQL_HOST = getenv(HBNB_MYSQL_HOST)
+        HBNB_MYSQL_DB = getenv(HBNB_MYSQL_DB)
+        HBNB_ENV = getenv(HBNB_ENV)
+        self.__engine = create_engine(mysql+mysqldb://{}:{}@{}/{}.
                                       format(HBNB_MYSQL_USER,
                                              HBNB_MYSQL_PWD,
                                              HBNB_MYSQL_HOST,
@@ -47,7 +47,7 @@ class DBStorage:
             if cls is None or cls is classes[clss] or cls is clss:
                 objs = self.__session.query(classes[clss]).all()
                 for obj in objs:
-                    key = obj.__class__.__name__ + '.' + obj.id
+                    key = obj.__class__.__name__ + . + obj.id
                     new_dict[key] = obj
         return (new_dict)
 
@@ -63,6 +63,28 @@ class DBStorage:
         """delete from the current database session obj if not None"""
         if obj is not None:
             self.__session.delete(obj)
+
+    def get(self, cls, id):
+        """A method to retrieve one object
+        Returns the object based on the class name and its ID, or
+        None if not found
+        """
+        if type(cls) == str:
+            cls = classes.get(cls)
+        if cls is None:
+            return None
+        return self.__session.query(cls).filter(cls.id == id).first()
+
+    def count(self, cls=None):
+        """A method to count the number of objects in storage
+        Returns the number of objects in storage matching the given class name
+        If no name is passed, returns the count of all objects in storage
+        """
+        if type(cls) is str:
+            cls = classes.get(cls)
+        if cls is None:
+            return len(self.all())
+        return len(self.all(cls))
 
     def reload(self):
         """reloads data from the database"""
