@@ -23,7 +23,7 @@ app.config[SWAGGER] = {
             "version": "1.0",
             "title": "HBNB API",
             "endpoint": 'v1_views',
-            "description": HBNB REST API,
+            "description": 'HBNB REST API',
             "route": '/v1/views',
         }
     ]
