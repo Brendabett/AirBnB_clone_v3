@@ -1,27 +1,22 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
-"""
-@authors: Kiprotich Brian.
-          Brenda Chelimo.
-"""
-from flask import jsonify, Blueprint
-from models import storage
+""" Index """
 from api.v1.views import app_views
-from models.state import State
+from flask import jsonify
+from models import storage
 
 
 @app_views.route(/status, methods=[GET], strict_slashes=False)
-def get_status():
-    """ check the status of route """
-    return jsonify({status: OK})
+def status():
+    """ Returns JSON """
+    return jsonify(status="OK")
 
 
-@app_views.route(/stats, methods=['GET'], strict_slashes=False)
-def object_status():
-    """Create an endpoint that retrieves the number of each objects by type
-    """
-    objects = {"amenities": 'Amenity', "cities": 'City', "places": Place,
-               "reviews": 'Review', "states": 'State', "users": 'User'}
-    for key, value in objects.items():
-        objects[key] = storage.count(value)
-    return jsonify(objects)
+@app_views.route(/stats, methods=[GET], strict_slashes=False)
+def stats():
+    """ Returns the number of each instance type """
+    return jsonify(amenities=storage.count("Amenity"),
+                   cities=storage.count("City"),
+                   places=storage.count("Place"),
+                   reviews=storage.count("Review"),
+                   states=storage.count("State"),
+                   users=storage.count("User"))
