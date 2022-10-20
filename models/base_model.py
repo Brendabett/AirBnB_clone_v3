@@ -43,7 +43,7 @@ class BaseModel:
                 self.updated_at = datetime.utcnow()
             if kwargs.get("password") is not None:
                 self.password = (hashlib.md5(
-                                 kwargs[password].encode()).hexdigest())
+                                 kwargs['password'].encode()).hexdigest())
             if kwargs.get("id", None) is None:
                 self.id = str(uuid.uuid4())
         else:
@@ -57,7 +57,7 @@ class BaseModel:
                                          self.__dict__)
 
     def save(self):
-        """updates the attribute updated_at with the current datetime"""
+        """updates the attribute 'updated_at' with the current datetime"""
         self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
@@ -69,7 +69,7 @@ class BaseModel:
             new_dict["created_at"] = new_dict["created_at"].strftime(time)
         if "updated_at" in new_dict:
             new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
-        if new_dict.get(password) is not None and show_pswd is False:
+        if new_dict.get('password') is not None and show_pswd is False:
             del new_dict["password"]
         new_dict["__class__"] = self.__class__.__name__
         if "_sa_instance_state" in new_dict:
