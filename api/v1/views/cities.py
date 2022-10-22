@@ -8,7 +8,7 @@ from models.city import City
 
 @app_views.route('states/<state_id>/cities', methods=['GET', 'POST'],
                  strict_slashes=False)
-def cities(state_id):
+def cities(state_id=None):
     """handles /states/<state_id>/cities route"""
     state = storage.get('State', state_id)
     if state is None:
