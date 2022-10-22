@@ -109,10 +109,10 @@ class TestDBStorage(unittest.TestCase):
     def test_count(self):
         """test that new adds an object to the database"""
         initial_count = models.storage.count()
-        self.assertEqual(models.storage.count("ty"), 0)
+        state_count = models.storage.count("State")
         new_state = State(name="Florida")
         new_state.save()
         new_user = User(email="bob@foobar.com", password="password")
         new_user.save()
-        self.assertEqual(models.storage.count("State"), initial_count + 1)
+        self.assertEqual(models.storage.count("State"), state_count + 1)
         self.assertEqual(models.storage.count(), initial_count + 2)
