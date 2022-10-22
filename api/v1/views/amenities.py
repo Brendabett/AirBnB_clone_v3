@@ -18,7 +18,7 @@ def amenities():
         if req_body is None:
             abort(400, 'Not a JSON')
         if req_body.get('name') is None:
-            abort(400, 'Missing Name')
+            abort(400, 'Missing name')
         new_amenity = Amenity(**req_body)
         new_amenity.save()
         return jsonify(new_amenity.to_dict()), 201

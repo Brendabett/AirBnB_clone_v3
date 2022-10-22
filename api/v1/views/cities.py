@@ -23,7 +23,7 @@ def cities(state_id):
         if req_body is None:
             abort(400, 'Not a JSON')
         if req_body.get('name') is None:
-            abort(400, 'Missing Name')
+            abort(400, 'Missing name')
         req_body['state_id'] = state_id
         new_city = City(**req_body)
         new_city.save()
