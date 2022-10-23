@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from models import storage
 from models.review import Review
 
+
 @app_views.route('places/<place_id>/reviews', methods=['GET', 'POST'],
                  strict_slashes=False)
 def reviews(place_id=None):
@@ -15,7 +16,7 @@ def reviews(place_id=None):
     if request.method == 'GET':
         reviews_obj = storage.all('Review')
         reviews_obj = [obj.to_dict() for obj in reviews_obj.values()
-                      if obj.place_id == place_id]
+                       if obj.place_id == place_id]
         return jsonify(reviews_obj)
     if request.method == 'POST':
         req_body = request.get_json()

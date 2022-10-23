@@ -43,4 +43,3 @@ def fun_amenity(amenity_id=None):
             abort(400, 'Not a JSON')
         amenity.update(req_body)
         return jsonify(amenity.to_dict())
-
