@@ -8,7 +8,7 @@ from models.city import City
 
 @app_views.route('states/<state_id>/cities', methods=['GET', 'POST'],
                  strict_slashes=False)
-def cities(state_id):
+def cities(state_id=None):
     """handles /states/<state_id>/cities route"""
     state = storage.get('State', state_id)
     if state is None:
@@ -23,7 +23,7 @@ def cities(state_id):
         if req_body is None:
             abort(400, 'Not a JSON')
         if req_body.get('name') is None:
-            abort(400, 'Missing Name')
+            abort(400, 'Missing name')
         req_body['state_id'] = state_id
         new_city = City(**req_body)
         new_city.save()
