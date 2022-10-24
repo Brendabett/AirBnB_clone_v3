@@ -65,7 +65,7 @@ def places_search():
     """
     params = request.get_json()
     if type(params) != dict:
-        abort(400, description='Not a JSON')
+        abort(400, 'Not a JSON')
     id_states = params.get('states', [])
     id_cities = params.get('cities', [])
     id_amenities = params.get('amenities', [])
