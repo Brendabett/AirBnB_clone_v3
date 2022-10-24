@@ -2,7 +2,7 @@
 """places view module"""
 from flask import jsonify, request, abort
 from api.v1.views import app_views
-from models import storage, storage_t
+from models import storage
 from models.place import Place
 
 
@@ -84,8 +84,8 @@ def places_search():
         cities = list(set(cities))
         places = [place for city in cities for place in city.places]
     amenities = [
-                       storage.get('Amenity', id) for id in id_amenities if
-                       storage.get('Amenity', id)
+        storage.get('Amenity', id) for id in id_amenities if
+        storage.get('Amenity', id)
     ]
     confirmed_places = []
     for place in places:

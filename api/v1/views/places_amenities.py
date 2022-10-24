@@ -4,7 +4,6 @@ from flask import jsonify, request, abort
 from os import getenv
 from api.v1.views import app_views
 from models import storage
-from models.review import Review
 
 
 STORAGE_TYPE = getenv('HBNB_TYPE_STORAGE')
@@ -17,7 +16,6 @@ def amenities_place(place_id=None):
     place = storage.get('Place', place_id)
     if place is None:
         abort(404, 'Not found')
-    # amenities = storage.all('Amenity')
     if STORAGE_TYPE == 'db':
         place_amenities = place.amenities
     else:
